@@ -308,6 +308,7 @@
     <Compile Include="Models\Claims.cs" />
     <Compile Include="Models\Emprestimos.cs" />
     <Compile Include="Models\EmprestimosComLivro.cs" />
+    <Compile Include="Models\GraficoViewModel.cs" />
     <Compile Include="Models\Livros.cs" />
     <Compile Include="Models\Multa.cs" />
     <Compile Include="Models\Reserva.cs" />

@@ -1,48 +1,246 @@
-﻿
-<html>
-<head>
-    <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        // Load the Visualization API and the corechart package.
-        google.charts.load('current', { 'packages': ['corechart'] });
+﻿@using IdentitySample.Models
+@using Newtonsoft.Json
+@model IEnumerable<IdentitySample.Models.Baixa>
 
-        // Set a callback to run when the Google Visualization API is loaded.
-        google.charts.setOnLoadCallback(drawChart);
+@{
+    ViewBag.Title = "Baixas";
 
-        // Callback that creates and populates a data table,
-        // instantiates the pie chart, passes in the data and
-        // draws it.
-        function drawChart() {
 
-            // Create the data table.
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Topping');
-            data.addColumn('number', 'Slices');
-            data.addRows([
-                ['Mushrooms', 3],
-                ['Onions', 1],
-                ['Olives', 1],
-                ['Zucchini', 1],
-                ['Pepperoni', 2]
-            ]);
+    var listaQtdeReservasPorMes = ViewBag.ListaQtdeReservasPorMes as List<GraficoViewModel>;
+    var listaQtdeBaixasPorMes = ViewBag.ListaQtdeBaixasPorMes as List<GraficoViewModel>;
+    var listaQtdeGenerosEmprestados = ViewBag.ListaGeneroEmprestados as List<GraficoViewModel>;
+    var listaQtdeEstadoConservacao = ViewBag.ListaEstadoConservacao as List<GraficoViewModel>;
+    var listaQtdeLivrosEmprestados = ViewBag.ListaQtdeLivrosEmprestados as List<GraficoViewModel>;
+    
 
-            // Set chart options
-            var options = {
-                'title': 'How Much Pizza I Ate Last Night',
-                'width': 400,
-                'height': 300
-            };
+}
 
-            // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
-        }
+@section Scripts{
+    <link href="~/Scripts/Highcharts-9.3.2/code/css/highcharts.css" rel="stylesheet" />
+    <script src="~/Scripts/Highcharts-9.3.2/code/highcharts.js"></script>
+
+    <script>
+        let listaQtdeReservasPorMes_meses = ["@Html.Raw(string.Join("\",\"", listaQtdeReservasPorMes.Select(c => c.descricao)))"];
+        let listaQtdeReservasPorMes_qtdes = [@Html.Raw(string.Join(",", listaQtdeReservasPorMes.Select(c => c.qtde)))];
+
+        let listaQtdeBaixasPorMes_meses = ["@Html.Raw(string.Join("\",\"", listaQtdeBaixasPorMes.Select(c => c.descricao)))"];
+        let listaQtdeBaixasPorMes_qtdes = [@Html.Raw(string.Join(",", listaQtdeBaixasPorMes.Select(c => c.qtde)))];
+
+        let listaQtdeGenerosEmprestadosPorMes = @Html.Raw(JsonConvert.SerializeObject(listaQtdeGenerosEmprestados.Select(c => new { name = c.descricao, y = c.qtde })));
+
+        let listaQtdeLivrosEmprestados = @Html.Raw(JsonConvert.SerializeObject(listaQtdeLivrosEmprestados.Select(c => new { name = c.descricao, y = c.qtde })));
+
+        let listaQtdeEstadoConservacao = @Html.Raw(JsonConvert.SerializeObject(listaQtdeEstadoConservacao.Select(c => new { name = c.descricao, y = c.qtde })));
+
     </script>
-</head>
 
-<body>
-    <!--Div that will hold the pie chart-->
-    <div id="chart_div"></div>
-</body>
-</html>
+    <script>
+        //--------------------------------------------------------Barra Quantidade de Reservas / Mês ---------------------------------------------------
+        Highcharts.chart('graficoQtdeReservasPorMes', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Quantidade de Livros Reservados Ultímos Três Meses '
+            },
+
+            xAxis: {
+                categories: listaQtdeReservasPorMes_meses,
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Quantidade'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y} </b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Reservas',
+                data: listaQtdeReservasPorMes_qtdes
+
+            }]
+        });
+
+        //--------------------------------------------------------Barra Quantidade de Baixas / Mês ---------------------------------------------------
+        Highcharts.chart('graficoQtdeBaixasPorMes', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Quantidade de Baixas Por Mês '
+            },
+
+            xAxis: {
+                categories: listaQtdeBaixasPorMes_meses,
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Quantidade'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Baixas',
+                data: listaQtdeBaixasPorMes_qtdes
+
+            }]
+        });
+
+        //--------------------------------------------------------Pizza Livros Por Categoria ---------------------------------------------------
+
+        Highcharts.chart('graficoQtdeGenerosEmprestados', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Gênero de Livros Emprestados'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }, showInLegend: true
+
+                }
+            },
+            series: [{
+                name: 'Quantidade',
+                colorByPoint: true,
+                data: listaQtdeGenerosEmprestadosPorMes
+            }]
+        });
+
+        //--------------------------------------------------------Pizza Livros Emprestados ---------------------------------------------------
+
+        Highcharts.chart('graficoQtdeLivrosEmprestados', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Livros Mais Emprestados'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }, showInLegend: true
+
+                }
+            },
+            series: [{
+                name: 'Quantidade',
+                colorByPoint: true,
+                data: listaQtdeLivrosEmprestados
+            
+            }]
+        });
+
+        //--------------------------------------------------------Pizza Estado de Conservação ---------------------------------------------------
+
+        Highcharts.chart('graficoQtdeEstadoConservacao', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Estado de Conservãção dos Livros'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }, showInLegend: true
+
+                }
+            },
+            series: [{
+                name: 'Quantidade',
+                colorByPoint: true,
+                data: listaQtdeEstadoConservacao
+            }]
+        });
+    </script>
+
+
+}
+<div class="row">
+    <div class="col-md-6" id="graficoQtdeReservasPorMes"></div>
+    <div class="col-md-6" id="graficoQtdeBaixasPorMes"></div>
+    <div class="col-md-4" id="graficoQtdeGenerosEmprestados"></div>
+    <div class="col-md-4" id="graficoQtdeLivrosEmprestados"></div>
+    <div class="col-md-4" id="graficoQtdeEstadoConservacao"></div>
+</div>
+<div class="row">
+    <div class="col"></div>
+    <div class="col"></div>
+</div>
