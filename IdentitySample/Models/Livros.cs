@@ -32,6 +32,7 @@ namespace IdentitySample.Models
         public int Paginas { get; set; }
 
         public ICollection<Emprestimo> Emprestimos { get; set; }
+        public ICollection<Acervo> Acervos{ get; set; }
         public ICollection<Multa> Multas { get; set; }
         [DefaultValue(true)]
         public bool Ativo { get; set; } = true;

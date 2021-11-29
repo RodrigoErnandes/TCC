@@ -18,7 +18,7 @@ namespace IdentitySample.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -107,7 +107,7 @@ namespace IdentitySample.Controllers
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie, DefaultAuthenticationTypes.TwoFactorCookie, DefaultAuthenticationTypes.ApplicationCookie);
             AuthenticationManager.SignIn
                 (
-                    new AuthenticationProperties { IsPersistent = isPersistent }, 
+                    new AuthenticationProperties { IsPersistent = isPersistent },
                     // Criação da instancia do Identity e atribuição dos Claims
                     await user.GenerateUserIdentityAsync(UserManager, ext)
                 );
@@ -129,7 +129,7 @@ namespace IdentitySample.Controllers
                 ViewBag.Status = "DEMO: Caso o código não chegue via " + provider + " o código é: ";
                 ViewBag.CodigoAcesso = await UserManager.GenerateTwoFactorTokenAsync(user.Id, provider);
             }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, UserId = userId});
+            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, UserId = userId });
         }
 
         //
@@ -179,11 +179,18 @@ namespace IdentitySample.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
+                    await UserManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "Usuario"));
+
+
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                 
                     await UserManager.SendEmailAsync(user.Id, "Confirme sua Conta", "Por favor confirme sua conta clicando neste link: <a href='" + callbackUrl + "'></a>");
+                    
+                    
                     ViewBag.Link = callbackUrl;
                     return View("DisplayEmail");
                 }

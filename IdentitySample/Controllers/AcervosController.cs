@@ -77,7 +77,7 @@ namespace IdentitySample.Controllers
         // GET: Acervos/Create
         public ActionResult Create()
         {
-            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo");
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Acervos.Any()).ToList(), "Id", "Titulo");
             ViewBag.Estado = new SelectList(new List<string>()
                 {
                     {"Novo"},
@@ -139,7 +139,7 @@ namespace IdentitySample.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo", acervo.LivroId);
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Acervos.Any()), "Id", "Titulo", acervo.LivroId);
             ViewBag.Status = new SelectList(new List<string>()
                 {
                     {"Emprestado"},
@@ -201,7 +201,7 @@ namespace IdentitySample.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo", acervo.LivroId);
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Acervos.Any()), "Id", "Titulo", acervo.LivroId);
             ViewBag.Estado = new SelectList(new List<string>()
                 {
                     {"Novo"},
