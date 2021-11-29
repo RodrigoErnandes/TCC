@@ -98,7 +98,7 @@ namespace IdentitySample.Controllers
         public ActionResult Create()
         {
             ViewBag.Leitor = new SelectList(UserManager.Users, "UserName", "UserName");
-            ViewBag.LivroId = new SelectList(db.Livros, "Id", "Titulo");
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.Status == "Emprestado")).ToList(), "Id", "Titulo");
             ViewBag.Status = new SelectList(new List<string>()
                 {
                     {"Emprestado"},
@@ -117,12 +117,14 @@ namespace IdentitySample.Controllers
         {
             if (ModelState.IsValid)
             {
+                //if (db.Emprestimos.Any(c=>c.LivroId == emprestimo.LivroId && c.Status == "Emprestado")) { 
+                //};
                 db.Emprestimos.Add(emprestimo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.Leitor = new SelectList(UserManager.Users, "UserName", "UserName");
-            ViewBag.LivroId = new SelectList(db.Livros, "Id", "Titulo", emprestimo.LivroId);
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.Status == "Emprestado")).ToList(), "Id", "Titulo");
             ViewBag.Status = new SelectList(new List<string>()
                 {
                     {"Emprestado"},
@@ -145,7 +147,7 @@ namespace IdentitySample.Controllers
                 return HttpNotFound();
             }
             ViewBag.Leitor = new SelectList(UserManager.Users, "UserName", "UserName");
-            ViewBag.LivroId = new SelectList(db.Livros, "Id", "Titulo", emprestimo.LivroId);
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.Status == "Emprestado")).ToList(), "Id", "Titulo");
             ViewBag.Status = new SelectList(new List<string>()
                 {
                     {"Emprestado"},
@@ -169,7 +171,7 @@ namespace IdentitySample.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Leitor = new SelectList(UserManager.Users, "UserName", "UserName");
-            ViewBag.LivroId = new SelectList(db.Livros, "Id", "Titulo", emprestimo.LivroId);
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.Status == "Emprestado")).ToList(), "Id", "Titulo");
             ViewBag.Status = new SelectList(new List<string>()
                 {
                     {"Emprestado"},
@@ -212,9 +214,9 @@ namespace IdentitySample.Controllers
         {
             Emprestimo emprestimo = db.Emprestimos.Find(id);
 
-            emprestimo.Status = "Devolvido";          
+            emprestimo.Status = "Devolvido";
             db.SaveChanges();
-          
+
 
 
             var livro = db.ReservaLivros
@@ -261,14 +263,14 @@ Livro: " + livro.Livro.Titulo + @"
                     Valor = 10
                 });
                 db.SaveChanges();
-                return RedirectToAction("Index","Multas");
+                return RedirectToAction("Index", "Multas");
             }
 
 
             return RedirectToAction("Index");
         }
 
-        
+
 
         protected override void Dispose(bool disposing)
         {

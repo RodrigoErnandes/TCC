@@ -51,7 +51,7 @@ namespace IdentitySample.Controllers
         // GET: Acervos
         public ActionResult Index()
         {
-            var acervos = db.Acervos.Include(a => a.Livro);
+            var acervos = db.Acervos.Include(a => a.Livro).Where(c => c.Ativo);
             return View(acervos.ToList());
         }
 
@@ -77,7 +77,7 @@ namespace IdentitySample.Controllers
         // GET: Acervos/Create
         public ActionResult Create()
         {
-            ViewBag.LivroId = new SelectList(db.Livros, "Id", "Titulo");
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo");
             ViewBag.Estado = new SelectList(new List<string>()
                 {
                     {"Novo"},
@@ -139,7 +139,7 @@ namespace IdentitySample.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.LivroId = new SelectList(db.Livros, "Id", "Titulo", acervo.LivroId);
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo", acervo.LivroId);
             ViewBag.Status = new SelectList(new List<string>()
                 {
                     {"Emprestado"},
@@ -201,7 +201,7 @@ namespace IdentitySample.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.LivroId = new SelectList(db.Livros, "Id", "Titulo", acervo.LivroId);
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo", acervo.LivroId);
             ViewBag.Estado = new SelectList(new List<string>()
                 {
                     {"Novo"},
@@ -272,7 +272,27 @@ namespace IdentitySample.Controllers
                     };
 
                     db.Baixas.Add(baixa);
+
+                    foreach (var item in db.Livros.Where(c => c.Id == baixa.LivroId).ToList())
+                    {
+                        item.Ativo = false;
+                    }
+
+                    foreach (var item in db.Acervos.Where(c => c.LivroId == baixa.LivroId).ToList())
+                    {
+                        item.Ativo = false;
+                    }
+
+
                     db.SaveChanges();
+
+
+
+
+
+
+
+
 
                     return RedirectToAction("Edit", "Baixas", new { id = baixa.Id });
                 }

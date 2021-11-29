@@ -72,7 +72,7 @@ namespace IdentitySample.Controllers
         }
 
         // GET: Baixas/Create
-        public ActionResult Create(int id)
+        public ActionResult Create(int? id = null)
         {
             ViewBag.ListaLivros = new SelectList(db.Livros, "Id", "Titulo", id);
             return View();
@@ -92,7 +92,7 @@ namespace IdentitySample.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.LivroId = new SelectList(db.Livros, "Id", "Titulo", baixa.LivroId);
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo", baixa.LivroId);
             return View(baixa);
         }
 
@@ -108,7 +108,7 @@ namespace IdentitySample.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.LivroId = new SelectList(db.Livros, "Id", "Titulo", baixa.LivroId);
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo", baixa.LivroId);
             return View(baixa);
         }
 
@@ -117,16 +117,42 @@ namespace IdentitySample.Controllers
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,LivroId,MotivoBaixa,Destino,Databaixa")] Baixa baixa)
+        public JsonResult Edit([Bind(Include = "Id,LivroId,MotivoBaixa,Destino,Databaixa")] Baixa baixa)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(baixa).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    if (db.Emprestimos.Any(c => c.LivroId == baixa.LivroId && c.Status == "Emprestado"))
+                    {
+                        throw new Exception("Não foi possível baixar o livro selecionado. Livro emprestado");
+                    }
+
+
+                    db.Entry(baixa).State = EntityState.Modified;
+                    db.SaveChanges();
+
+
+                    foreach (var item in db.Livros.Where(c => c.Id == baixa.LivroId).ToList())
+                    {
+                        item.Ativo = false;
+                    }
+
+                    foreach (var item in db.Acervos.Where(c => c.LivroId == baixa.LivroId).ToList())
+                    {
+                        item.Ativo = false;
+                    }
+
+                    db.SaveChanges();
+
+                    return Json("OK");
+                }
+                return Json(baixa);
             }
-            ViewBag.LivroId = new SelectList(db.Livros, "Id", "Titulo", baixa.LivroId);
-            return View(baixa);
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
 
         // GET: Baixas/Delete/5
@@ -153,6 +179,20 @@ namespace IdentitySample.Controllers
         {
             Baixa baixa = db.Baixas.Find(id);
             db.Baixas.Remove(baixa);
+
+            foreach (var item in db.Livros.Where(c => c.Id == baixa.LivroId).ToList())
+            {
+                item.Ativo = true;
+            }
+
+            foreach (var item in db.Acervos.Where(c => c.LivroId == baixa.LivroId).ToList())
+            {
+                item.Ativo = true;
+            }
+
+            db.SaveChanges();
+
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }

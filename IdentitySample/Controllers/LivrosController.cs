@@ -11,7 +11,7 @@ using Microsoft.Reporting.WebForms;
 
 namespace IdentitySample.Controllers
 {
-    
+
     public class LivrosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -52,7 +52,7 @@ namespace IdentitySample.Controllers
         // GET: Livros
         public ActionResult Index()
         {
-            return View(db.Livros.ToList());
+            return View(db.Livros.Where(c => c.Ativo).ToList());
         }
 
         // GET: Livros/Details/5
@@ -86,10 +86,10 @@ namespace IdentitySample.Controllers
         public ActionResult Create([Bind(Include = "Id,Titulo,Autor,Editora,Paginas")] Livro livro)
         {
             if (ModelState.IsValid)
-            {
+            {              
                 db.Livros.Add(livro);
                 db.SaveChanges();
-                return RedirectToAction("Create","Acervos");
+                return RedirectToAction("Create", "Acervos");
             }
 
             return View(livro);

@@ -78,7 +78,7 @@ namespace IdentitySample.Controllers
         // GET: Reservas/Create
         public ActionResult Create()
         {
-            ViewBag.Livros = new SelectList(db.Livros, "Id", "Titulo");
+            ViewBag.Livros = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo");
             return View();
         }
 
@@ -99,7 +99,7 @@ namespace IdentitySample.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.LivroId = new SelectList(db.Livros, "Id", "Titulo");
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo");
             return View(reserva);
         }
 
@@ -117,7 +117,7 @@ namespace IdentitySample.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.LivroId = new SelectList(db.Livros, "Id", "Titulo");
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo");
             return View(reserva);
         }
 
@@ -144,7 +144,7 @@ namespace IdentitySample.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.LivroId = new SelectList(db.Livros, "Id", "Titulo");
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo");
             return View(reserva);
         }
 

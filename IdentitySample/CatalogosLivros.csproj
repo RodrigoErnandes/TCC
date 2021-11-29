@@ -289,6 +289,14 @@
     <Compile Include="Migrations\202111281547382_MultaLeitor.Designer.cs">
       <DependentUpon>202111281547382_MultaLeitor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111291351501_Ativo_em_acervo_e_livros.cs" />
+    <Compile Include="Migrations\202111291351501_Ativo_em_acervo_e_livros.Designer.cs">
+      <DependentUpon>202111291351501_Ativo_em_acervo_e_livros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111291354475_Ativo_em_acervo_e_livros_default_true.cs" />
+    <Compile Include="Migrations\202111291354475_Ativo_em_acervo_e_livros_default_true.Designer.cs">
+      <DependentUpon>202111291354475_Ativo_em_acervo_e_livros_default_true.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Acervo.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -575,6 +583,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111281547382_MultaLeitor.resx">
       <DependentUpon>202111281547382_MultaLeitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111291351501_Ativo_em_acervo_e_livros.resx">
+      <DependentUpon>202111291351501_Ativo_em_acervo_e_livros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111291354475_Ativo_em_acervo_e_livros_default_true.resx">
+      <DependentUpon>202111291354475_Ativo_em_acervo_e_livros_default_true.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\AcervosRelatorio.rdlc" />
     <EmbeddedResource Include="Reports\BaixasRelatorio.rdlc" />

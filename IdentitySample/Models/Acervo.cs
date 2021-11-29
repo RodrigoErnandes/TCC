@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -35,5 +36,8 @@ namespace IdentitySample.Models
         [Display(Name = "Gênero Literário do Livro")]
         [Required(ErrorMessage = "Campo Obrigatório | Favor descrever o gênero do livro")]
         public string Genero { get; set; }
+
+        [DefaultValue(true)]
+        public bool Ativo { get; set; } = true;
     }
 }
