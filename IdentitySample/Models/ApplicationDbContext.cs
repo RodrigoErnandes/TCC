@@ -20,7 +20,10 @@ namespace IdentitySample.Models
         {
             return new ApplicationDbContext();
         }
-
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
         public System.Data.Entity.DbSet<IdentitySample.Models.Livro> Livros { get; set; }
 
         public System.Data.Entity.DbSet<IdentitySample.Models.Emprestimo> Emprestimos { get; set; }
@@ -29,5 +32,6 @@ namespace IdentitySample.Models
         public System.Data.Entity.DbSet<IdentitySample.Models.Reserva> Reservas { get; set; }
         public System.Data.Entity.DbSet<IdentitySample.Models.ReservaLivro> ReservaLivros { get; set; }
         public System.Data.Entity.DbSet<IdentitySample.Models.Multa> Multas { get; set; }
+        public System.Data.Entity.DbSet<IdentitySample.Models.Situacao> Situacoes{ get; set; }
     }
 }

@@ -301,6 +301,10 @@
     <Compile Include="Migrations\202111291526566_acervo.Designer.cs">
       <DependentUpon>202111291526566_acervo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111292024578_Situacao.cs" />
+    <Compile Include="Migrations\202111292024578_Situacao.Designer.cs">
+      <DependentUpon>202111292024578_Situacao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Acervo.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -333,6 +337,7 @@
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Situacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="_aspnet_TCCPUCMINAS_20210323084824DataSet.Designer.cs">
@@ -597,6 +602,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111291526566_acervo.resx">
       <DependentUpon>202111291526566_acervo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111292024578_Situacao.resx">
+      <DependentUpon>202111292024578_Situacao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\AcervosRelatorio.rdlc" />
     <EmbeddedResource Include="Reports\BaixasRelatorio.rdlc" />

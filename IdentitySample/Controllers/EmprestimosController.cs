@@ -99,12 +99,7 @@ namespace IdentitySample.Controllers
         {
             ViewBag.Leitor = new SelectList(UserManager.Users, "UserName", "UserName");
             ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.Status == "Emprestado")).ToList(), "Id", "Titulo");
-            ViewBag.Status = new SelectList(new List<string>()
-                {
-                    {"Emprestado"},
-                    {"Devolvido"},
-                    {"Reservado"}
-              });
+
             return View();
         }
 
@@ -117,20 +112,14 @@ namespace IdentitySample.Controllers
         {
             if (ModelState.IsValid)
             {
-                //if (db.Emprestimos.Any(c=>c.LivroId == emprestimo.LivroId && c.Status == "Emprestado")) { 
-                //};
+                emprestimo.Status = "Emprestado";
+
                 db.Emprestimos.Add(emprestimo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.Leitor = new SelectList(UserManager.Users, "UserName", "UserName");
             ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.Status == "Emprestado")).ToList(), "Id", "Titulo");
-            ViewBag.Status = new SelectList(new List<string>()
-                {
-                    {"Emprestado"},
-                    {"Devolvido"},
-                    {"Reservado"}
-              });
             return View(emprestimo);
         }
 
@@ -148,12 +137,7 @@ namespace IdentitySample.Controllers
             }
             ViewBag.Leitor = new SelectList(UserManager.Users, "UserName", "UserName");
             ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.Status == "Emprestado")).ToList(), "Id", "Titulo");
-            ViewBag.Status = new SelectList(new List<string>()
-                {
-                    {"Emprestado"},
-                    {"Devolvido"},
-                    {"Reservado"}
-              });
+
             return View(emprestimo);
         }
 
@@ -172,12 +156,7 @@ namespace IdentitySample.Controllers
             }
             ViewBag.Leitor = new SelectList(UserManager.Users, "UserName", "UserName");
             ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.Status == "Emprestado")).ToList(), "Id", "Titulo");
-            ViewBag.Status = new SelectList(new List<string>()
-                {
-                    {"Emprestado"},
-                    {"Devolvido"},
-                    {"Reservado"}
-              });
+
             return View(emprestimo);
         }
 

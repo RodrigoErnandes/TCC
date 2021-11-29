@@ -31,9 +31,21 @@ namespace IdentitySample.Models
         [Required(ErrorMessage = "Campo Obrigatório | Favor digitar a data da devolução do livro")]
         public DateTime DataPrevisaoDevolucao { get; set; }
 
-        [Display(Name = "Status do Empréstimo")]
+
+
+        //[Display(Name = "Situacao")]
+        //[Required(ErrorMessage = "Campo Obrigatório | Favor selecionar a situação")]
+        //public int? SituacaoId { get; set; }
+        //[ForeignKey("SituacaoId")]
+        //public Situacao Situacao { get; set; }
+
+
+        [Display(Name = "Situação do Empréstimo")]
         [Required(ErrorMessage = "Campo Obrigatório | Favor selecionar o status atual")]
         public string Status { get; set; }
+
+
+
 
         [Display(Name = "Leitor")]
         [Required(ErrorMessage = "Campo Obrigatório | Favor selecionar o leitor")]
