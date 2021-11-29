@@ -1,0 +1,621 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8563CD39-E819-4EEF-B94D-7A352653392C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IdentitySample</RootNamespace>
+    <AssemblyName>IdentitySample</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44393</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Common.10.0.40219.1\lib\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Common.10.0.40219.1\lib\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Common.10.0.40219.1\lib\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.WebForms.10.0.40219.1\lib\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid.SmtpApi">
+      <HintPath>..\packages\SendGrid.SmtpApi.1.1.3\lib\net40\SendGrid.SmtpApi.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGridMail">
+      <HintPath>..\packages\Sendgrid.4.0.0\lib\SendGridMail.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.Api">
+      <HintPath>..\packages\Twilio.3.6.16\lib\3.5\Twilio.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.Mvc">
+      <HintPath>..\packages\Twilio.Mvc.3.1.12\lib\3.5\Twilio.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.Twiml">
+      <HintPath>..\packages\Twilio.TwiML.3.3.3\lib\3.5\Twilio.Twiml.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.2.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.2.1.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\Identity\ApplicationCookieIdentityValidator.cs" />
+    <Compile Include="App_Start\Identity\ApplicationRoleManager.cs" />
+    <Compile Include="App_Start\Identity\ApplicationSignInManager.cs" />
+    <Compile Include="Controllers\AcervosController.cs" />
+    <Compile Include="Controllers\BaixasController.cs" />
+    <Compile Include="Controllers\ClaimsAdminController.cs" />
+    <Compile Include="Controllers\EmprestimosController.cs" />
+    <Compile Include="Controllers\GraficosController.cs" />
+    <Compile Include="Controllers\LivrosController.cs" />
+    <Compile Include="Controllers\MultasController.cs" />
+    <Compile Include="Controllers\ReservasController.cs" />
+    <Compile Include="dsAcervo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsAcervo.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsBaixas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsBaixas.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsEmprestimos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsEmprestimos.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsMultas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsMultas.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsReserva.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsReserva.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsReservas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsReservas.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\ClaimsAuthorize.cs" />
+    <Compile Include="Livros_aspnet_TCCPUCMINAS_20210323084824DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Livros_aspnet_TCCPUCMINAS_20210323084824DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111221642206_projeto1.cs" />
+    <Compile Include="Migrations\202111221642206_projeto1.Designer.cs">
+      <DependentUpon>202111221642206_projeto1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111221826211_projeto02.cs" />
+    <Compile Include="Migrations\202111221826211_projeto02.Designer.cs">
+      <DependentUpon>202111221826211_projeto02.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111221922548_ReservaLivro.cs" />
+    <Compile Include="Migrations\202111221922548_ReservaLivro.Designer.cs">
+      <DependentUpon>202111221922548_ReservaLivro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111221923554_ReservaLivro2.cs" />
+    <Compile Include="Migrations\202111221923554_ReservaLivro2.Designer.cs">
+      <DependentUpon>202111221923554_ReservaLivro2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111261322532_leitor_na_reserva.cs" />
+    <Compile Include="Migrations\202111261322532_leitor_na_reserva.Designer.cs">
+      <DependentUpon>202111261322532_leitor_na_reserva.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111261349462_observacao.cs" />
+    <Compile Include="Migrations\202111261349462_observacao.Designer.cs">
+      <DependentUpon>202111261349462_observacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111261352200_observacao2.cs" />
+    <Compile Include="Migrations\202111261352200_observacao2.Designer.cs">
+      <DependentUpon>202111261352200_observacao2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111272320103_genero_acervo.cs" />
+    <Compile Include="Migrations\202111272320103_genero_acervo.Designer.cs">
+      <DependentUpon>202111272320103_genero_acervo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111280039449_multas.cs" />
+    <Compile Include="Migrations\202111280039449_multas.Designer.cs">
+      <DependentUpon>202111280039449_multas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111280246124_multasnovo.cs" />
+    <Compile Include="Migrations\202111280246124_multasnovo.Designer.cs">
+      <DependentUpon>202111280246124_multasnovo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111280304395_multas_observacao.cs" />
+    <Compile Include="Migrations\202111280304395_multas_observacao.Designer.cs">
+      <DependentUpon>202111280304395_multas_observacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111281530517_MultaLivroLivro.cs" />
+    <Compile Include="Migrations\202111281530517_MultaLivroLivro.Designer.cs">
+      <DependentUpon>202111281530517_MultaLivroLivro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111281547382_MultaLeitor.cs" />
+    <Compile Include="Migrations\202111281547382_MultaLeitor.Designer.cs">
+      <DependentUpon>202111281547382_MultaLeitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Acervo.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\Baixa.cs" />
+    <Compile Include="Models\Claims.cs" />
+    <Compile Include="Models\Emprestimos.cs" />
+    <Compile Include="Models\EmprestimosComLivro.cs" />
+    <Compile Include="Models\Livros.cs" />
+    <Compile Include="Models\Multa.cs" />
+    <Compile Include="Models\Reserva.cs" />
+    <Compile Include="Models\ReservaLivro.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Models\ClaimViewModel.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="App_Start\Identity\EmailService.cs" />
+    <Compile Include="App_Start\Identity\IdentityConfig.cs" />
+    <Compile Include="App_Start\Identity\SmsService.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="_aspnet_TCCPUCMINAS_20210323084824DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_aspnet_TCCPUCMINAS_20210323084824DataSet.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\aspnet-TCCPUCMINAS-20210323084824.mdf" />
+    <Content Include="App_Data\aspnet-TCCPUCMINAS-20210323084824_log.ldf">
+      <DependentUpon>aspnet-TCCPUCMINAS-20210323084824.mdf</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Livros_aspnet_TCCPUCMINAS_20210323084824DataSet.xsc">
+      <DependentUpon>Livros_aspnet_TCCPUCMINAS_20210323084824DataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="dsEmprestimos.xsc">
+      <DependentUpon>dsEmprestimos.xsd</DependentUpon>
+    </Content>
+    <Content Include="dsAcervo.xsc">
+      <DependentUpon>dsAcervo.xsd</DependentUpon>
+    </Content>
+    <None Include="dsAcervo.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsAcervo.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="dsAcervo.xss">
+      <DependentUpon>dsAcervo.xsd</DependentUpon>
+    </Content>
+    <Content Include="dsBaixas.xsc">
+      <DependentUpon>dsBaixas.xsd</DependentUpon>
+    </Content>
+    <None Include="dsBaixas.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBaixas.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="dsBaixas.xss">
+      <DependentUpon>dsBaixas.xsd</DependentUpon>
+    </Content>
+    <None Include="dsEmprestimos.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsEmprestimos.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="dsEmprestimos.xss">
+      <DependentUpon>dsEmprestimos.xsd</DependentUpon>
+    </Content>
+    <Content Include="dsReservas.xsc">
+      <DependentUpon>dsReservas.xsd</DependentUpon>
+    </Content>
+    <Content Include="dsMultas.xsc">
+      <DependentUpon>dsMultas.xsd</DependentUpon>
+    </Content>
+    <None Include="dsMultas.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsMultas.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="dsMultas.xss">
+      <DependentUpon>dsMultas.xsd</DependentUpon>
+    </Content>
+    <Content Include="dsReserva.xsc">
+      <DependentUpon>dsReserva.xsd</DependentUpon>
+    </Content>
+    <None Include="dsReserva.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsReserva.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="dsReserva.xss">
+      <DependentUpon>dsReserva.xsd</DependentUpon>
+    </Content>
+    <None Include="dsReservas.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsReservas.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="dsReservas.xss">
+      <DependentUpon>dsReservas.xsd</DependentUpon>
+    </Content>
+    <None Include="Livros_aspnet_TCCPUCMINAS_20210323084824DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Livros_aspnet_TCCPUCMINAS_20210323084824DataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Livros_aspnet_TCCPUCMINAS_20210323084824DataSet.xss">
+      <DependentUpon>Livros_aspnet_TCCPUCMINAS_20210323084824DataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\cldr.js" />
+    <Content Include="Scripts\cldr\event.js" />
+    <Content Include="Scripts\cldr\supplemental.js" />
+    <Content Include="Scripts\cldr\unresolved.js" />
+    <Content Include="Scripts\globalize.js" />
+    <Content Include="Scripts\globalize\currency.js" />
+    <Content Include="Scripts\globalize\date.js" />
+    <Content Include="Scripts\globalize\message.js" />
+    <Content Include="Scripts\globalize\number.js" />
+    <Content Include="Scripts\globalize\plural.js" />
+    <Content Include="Scripts\globalize\relative-time.js" />
+    <Content Include="Scripts\globalize\unit.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate-messages-pt-br.js" />
+    <Content Include="Scripts\jquery.validate.globalize.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\UsersAdmin\Index.cshtml" />
+    <Content Include="Views\UsersAdmin\Edit.cshtml" />
+    <Content Include="Views\UsersAdmin\Details.cshtml" />
+    <Content Include="Views\UsersAdmin\Delete.cshtml" />
+    <Content Include="Views\UsersAdmin\Create.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\RolesAdmin\Index.cshtml" />
+    <Content Include="Views\RolesAdmin\Edit.cshtml" />
+    <Content Include="Views\RolesAdmin\Details.cshtml" />
+    <Content Include="Views\RolesAdmin\Delete.cshtml" />
+    <Content Include="Views\RolesAdmin\Create.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\DisplayEmail.cshtml" />
+    <Content Include="Views\Home\SignOut.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Livros\Create.cshtml" />
+    <Content Include="Views\Livros\Delete.cshtml" />
+    <Content Include="Views\Livros\Details.cshtml" />
+    <Content Include="Views\Livros\Edit.cshtml" />
+    <Content Include="Views\Livros\Index.cshtml" />
+    <Content Include="Views\Emprestimos\Create.cshtml" />
+    <Content Include="Views\Emprestimos\Delete.cshtml" />
+    <Content Include="Views\Emprestimos\Details.cshtml" />
+    <Content Include="Views\Emprestimos\Edit.cshtml" />
+    <Content Include="Views\Emprestimos\Index.cshtml" />
+    <Content Include="_aspnet_TCCPUCMINAS_20210323084824DataSet.xsc">
+      <DependentUpon>_aspnet_TCCPUCMINAS_20210323084824DataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\Acervos\Create.cshtml" />
+    <Content Include="Views\Acervos\Delete.cshtml" />
+    <Content Include="Views\Acervos\Details.cshtml" />
+    <Content Include="Views\Acervos\Edit.cshtml" />
+    <Content Include="Views\Acervos\Index.cshtml" />
+    <Content Include="Views\Baixas\Create.cshtml" />
+    <Content Include="Views\Baixas\Delete.cshtml" />
+    <Content Include="Views\Baixas\Details.cshtml" />
+    <Content Include="Views\Baixas\Edit.cshtml" />
+    <Content Include="Views\Baixas\Index.cshtml" />
+    <Content Include="Views\Reservas\Create.cshtml" />
+    <Content Include="Views\Reservas\Delete.cshtml" />
+    <Content Include="Views\Reservas\Details.cshtml" />
+    <Content Include="Views\Reservas\Edit.cshtml" />
+    <Content Include="Views\Reservas\Index.cshtml" />
+    <Content Include="Views\Multas\Create.cshtml" />
+    <Content Include="Views\Multas\Delete.cshtml" />
+    <Content Include="Views\Multas\Details.cshtml" />
+    <Content Include="Views\Multas\Edit.cshtml" />
+    <Content Include="Views\Multas\Index.cshtml" />
+    <Content Include="Views\Graficos\RelatorioEmprestimos.cshtml" />
+    <None Include="_aspnet_TCCPUCMINAS_20210323084824DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>_aspnet_TCCPUCMINAS_20210323084824DataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="_aspnet_TCCPUCMINAS_20210323084824DataSet.xss">
+      <DependentUpon>_aspnet_TCCPUCMINAS_20210323084824DataSet.xsd</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202111221642206_projeto1.resx">
+      <DependentUpon>202111221642206_projeto1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111221826211_projeto02.resx">
+      <DependentUpon>202111221826211_projeto02.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111221922548_ReservaLivro.resx">
+      <DependentUpon>202111221922548_ReservaLivro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111221923554_ReservaLivro2.resx">
+      <DependentUpon>202111221923554_ReservaLivro2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111261322532_leitor_na_reserva.resx">
+      <DependentUpon>202111261322532_leitor_na_reserva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111261349462_observacao.resx">
+      <DependentUpon>202111261349462_observacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111261352200_observacao2.resx">
+      <DependentUpon>202111261352200_observacao2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111272320103_genero_acervo.resx">
+      <DependentUpon>202111272320103_genero_acervo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111280039449_multas.resx">
+      <DependentUpon>202111280039449_multas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111280246124_multasnovo.resx">
+      <DependentUpon>202111280246124_multasnovo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111280304395_multas_observacao.resx">
+      <DependentUpon>202111280304395_multas_observacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111281530517_MultaLivroLivro.resx">
+      <DependentUpon>202111281530517_MultaLivroLivro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111281547382_MultaLeitor.resx">
+      <DependentUpon>202111281547382_MultaLeitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\AcervosRelatorio.rdlc" />
+    <EmbeddedResource Include="Reports\BaixasRelatorio.rdlc" />
+    <EmbeddedResource Include="Reports\EmprestimoRelatorio.rdlc" />
+    <EmbeddedResource Include="Reports\LivrosRelatorio.rdlc" />
+    <EmbeddedResource Include="Reports\MultasRelatorio.rdlc" />
+    <EmbeddedResource Include="Reports\ReservasRelatorio.rdlc" />
+    <EmbeddedResource Include="Reports\UsuariosRelatorio.rdlc" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>46180</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44393/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

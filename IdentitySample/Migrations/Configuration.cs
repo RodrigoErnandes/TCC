@@ -9,8 +9,7 @@ namespace IdentitySample.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            ContextKey = "IdentitySample.Models.ApplicationDbContext";
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(IdentitySample.Models.ApplicationDbContext context)

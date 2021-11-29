@@ -66,8 +66,8 @@ namespace IdentitySample
 
 
             app.UseGoogleAuthentication(
-                clientId: "SEU ID",
-                clientSecret: "SEU TOKEN");
+                clientId: "1072686214693-20b2j5t32dmei18d8bkgk89qj0jecf78.apps.googleusercontent.com",
+                clientSecret: "VfbiH-UeTPrdnsQGaCHuN1yI");
 
 
             var fao = new FacebookAuthenticationOptions

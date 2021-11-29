@@ -1,0 +1,59 @@
+﻿@model IEnumerable<IdentitySample.Models.Reserva>
+
+@{
+    ViewBag.Title = "ReservaLivros";
+}
+
+@Html.ActionLink("Exportar PDF", "Reports", new { ReportType = "PDF" }) |
+@Html.ActionLink("Exportar Excel", "Reports", new { ReportType = "Excel" })
+
+<h2>Reservas</h2>
+
+<p>
+    @Html.ActionLink("Nova Reserva", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Leitor
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataReserva)
+        </th>
+        <th>
+            Observação
+        </th>
+        <th>
+            Qtde.
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Leitor)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataReserva)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Observacao)
+            </td>
+
+            <td>
+                @item.ReservaLivros.Count()
+
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Deletar", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

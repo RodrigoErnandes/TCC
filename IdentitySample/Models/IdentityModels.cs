@@ -33,6 +33,7 @@ namespace IdentitySample.Models
             }
 
             //  Adicione novos Claims aqui //
+            claims.Add(new Claim("AdmRoles", "True"));
 
             // Adicionando Claims externos capturados no login
             if (ext != null)
@@ -41,7 +42,7 @@ namespace IdentitySample.Models
             }
 
             // Gerenciamento de Claims para informaçoes do usuario
-            //claims.Add(new Claim("AdmRoles", "True"));
+            claims.Add(new Claim("AdmRoles", "True"));
 
             userIdentity.AddClaims(claims);
 

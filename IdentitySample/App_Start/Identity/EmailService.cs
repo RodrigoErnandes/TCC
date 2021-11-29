@@ -23,12 +23,12 @@ namespace IdentitySample.Identity
         {
             var myMessage = new SendGridMessage();
             myMessage.AddTo(message.Destination);
-            myMessage.From = new MailAddress("admin@portal.com.br", "Admin do Portal");
+            myMessage.From = new MailAddress("rodrigoernandesgdh@gmail.com", "Admin do Portal");
             myMessage.Subject = message.Subject;
             myMessage.Text = message.Body;
             myMessage.Html = message.Body;
 
-            var credentials = new NetworkCredential(ConfigurationManager.AppSettings["mailAccount"], ConfigurationManager.AppSettings["mailPassword"]);
+            var credentials = new NetworkCredential(ConfigurationManager.AppSettings["rodrigoernandesgdh@gmail.com"], ConfigurationManager.AppSettings["CavaloeCaneta"]);
 
             // Criar um transport web para envio de e-mail
             var transportWeb = new Web(credentials);
@@ -53,15 +53,15 @@ namespace IdentitySample.Identity
                 var text = HttpUtility.HtmlEncode(message.Body);
 
                 var msg = new MailMessage();
-                msg.From = new MailAddress("admin@portal.com.br", "Admin do Portal");
+                msg.From = new MailAddress("rodrigoernandesgdh@gmail.com", "Admin do Portal");
                 msg.To.Add(new MailAddress(message.Destination));
                 msg.Subject = message.Subject;
                 msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
                 msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Html));
 
-                var smtpClient = new SmtpClient("smtp.provedor.com", Convert.ToInt32(587));
-                var credentials = new NetworkCredential(ConfigurationManager.AppSettings["ContaDeEmail"],
-                    ConfigurationManager.AppSettings["SenhaEmail"]);
+                var smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+                var credentials = new NetworkCredential(ConfigurationManager.AppSettings["rodrigoernandesgdh@gmail.com"],
+                    ConfigurationManager.AppSettings["CavaloeCaneta"]);
                 smtpClient.Credentials = credentials;
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(msg);

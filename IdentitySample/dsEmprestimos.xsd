@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsEmprestimos" targetNamespace="http://tempuri.org/dsEmprestimos.xsd" xmlns:mstns="http://tempuri.org/dsEmprestimos.xsd" xmlns="http://tempuri.org/dsEmprestimos.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="DefaultConnection" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="DefaultConnection (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.DefaultConnection.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="emprestimoscomlivroTableAdapter" GeneratorDataComponentClassName="emprestimoscomlivroTableAdapter" Name="emprestimoscomlivro" UserDataComponentName="emprestimoscomlivroTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="DefaultConnection (Web.config)" DbObjectName="dbo.emprestimoscomlivro" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Id, LivroId, DataEmprestimo, DataPrevisaoDevolucao, Status, Leitor, Titulo FROM dbo.emprestimoscomlivro</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Id" DataSetColumn="Id" />
+              <Mapping SourceColumn="LivroId" DataSetColumn="LivroId" />
+              <Mapping SourceColumn="DataEmprestimo" DataSetColumn="DataEmprestimo" />
+              <Mapping SourceColumn="DataPrevisaoDevolucao" DataSetColumn="DataPrevisaoDevolucao" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="Leitor" DataSetColumn="Leitor" />
+              <Mapping SourceColumn="Titulo" DataSetColumn="Titulo" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsEmprestimos" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="dsEmprestimos" msprop:Generator_UserDSName="dsEmprestimos">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="emprestimoscomlivro" msprop:Generator_TableClassName="emprestimoscomlivroDataTable" msprop:Generator_TableVarName="tableemprestimoscomlivro" msprop:Generator_TablePropName="emprestimoscomlivro" msprop:Generator_RowDeletingName="emprestimoscomlivroRowDeleting" msprop:Generator_RowChangingName="emprestimoscomlivroRowChanging" msprop:Generator_RowEvHandlerName="emprestimoscomlivroRowChangeEventHandler" msprop:Generator_RowDeletedName="emprestimoscomlivroRowDeleted" msprop:Generator_UserTableName="emprestimoscomlivro" msprop:Generator_RowChangedName="emprestimoscomlivroRowChanged" msprop:Generator_RowEvArgName="emprestimoscomlivroRowChangeEvent" msprop:Generator_RowClassName="emprestimoscomlivroRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="LivroId" msprop:Generator_ColumnVarNameInTable="columnLivroId" msprop:Generator_ColumnPropNameInRow="LivroId" msprop:Generator_ColumnPropNameInTable="LivroIdColumn" msprop:Generator_UserColumnName="LivroId" type="xs:int" />
+              <xs:element name="DataEmprestimo" msprop:Generator_ColumnVarNameInTable="columnDataEmprestimo" msprop:Generator_ColumnPropNameInRow="DataEmprestimo" msprop:Generator_ColumnPropNameInTable="DataEmprestimoColumn" msprop:Generator_UserColumnName="DataEmprestimo" type="xs:dateTime" />
+              <xs:element name="DataPrevisaoDevolucao" msprop:Generator_ColumnVarNameInTable="columnDataPrevisaoDevolucao" msprop:Generator_ColumnPropNameInRow="DataPrevisaoDevolucao" msprop:Generator_ColumnPropNameInTable="DataPrevisaoDevolucaoColumn" msprop:Generator_UserColumnName="DataPrevisaoDevolucao" type="xs:dateTime" />
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Leitor" msprop:Generator_ColumnVarNameInTable="columnLeitor" msprop:Generator_ColumnPropNameInRow="Leitor" msprop:Generator_ColumnPropNameInTable="LeitorColumn" msprop:Generator_UserColumnName="Leitor">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Titulo" msprop:Generator_ColumnVarNameInTable="columnTitulo" msprop:Generator_ColumnPropNameInRow="Titulo" msprop:Generator_ColumnPropNameInTable="TituloColumn" msprop:Generator_UserColumnName="Titulo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:emprestimoscomlivro" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

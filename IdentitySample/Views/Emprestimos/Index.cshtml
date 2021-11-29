@@ -1,0 +1,61 @@
+﻿@model IEnumerable<IdentitySample.Models.Emprestimo>
+
+
+@{
+    ViewBag.Title = "EmprestimosLivro";
+}
+
+@Html.ActionLink("Exportar PDF", "Reports", new { ReportType = "PDF" }) |
+@Html.ActionLink("Exportar Excel", "Reports", new { ReportType = "Excel" })
+<h2>Empréstimos</h2>
+
+<p>
+    @Html.ActionLink("Novo Empréstimo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Livro.Titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataEmprestimo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataPrevisaoDevolucao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Leitor)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Livro.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataEmprestimo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPrevisaoDevolucao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.Leitor)
+            </th>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Deletar", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

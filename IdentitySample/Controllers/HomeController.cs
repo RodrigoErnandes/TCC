@@ -2,6 +2,8 @@
 
 namespace IdentitySample.Controllers
 {
+    //[Authorize(Roles = "Admin,Atendente,Usuario")]
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()

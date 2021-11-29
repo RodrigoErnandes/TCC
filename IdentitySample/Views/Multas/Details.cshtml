@@ -1,0 +1,66 @@
+﻿@model IdentitySample.Models.Multa
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Multa</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Leitor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Leitor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Livro.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Livro.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MotivoMulta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MotivoMulta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusPagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusPagamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observacao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

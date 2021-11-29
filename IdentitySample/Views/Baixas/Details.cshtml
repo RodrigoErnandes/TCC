@@ -1,0 +1,50 @@
+﻿@model IdentitySample.Models.Baixa
+
+@{
+    ViewBag.Title = "Datalhes";
+}
+
+<h2>Datalhes</h2>
+
+<div>
+    <h4>Baixa</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Livro.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Livro.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MotivoBaixa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MotivoBaixa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Destino)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Destino)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Databaixa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Databaixa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

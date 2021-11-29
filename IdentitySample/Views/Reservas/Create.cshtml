@@ -1,0 +1,130 @@
+﻿@model IdentitySample.Models.Reserva
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Reserva</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DataReserva, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DataReserva, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DataReserva, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Observacao, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Observacao, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Observacao, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Leitor, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Leitor, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Leitor, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+
+        <label class="control-label col-md-2" for="LivroId">Livro</label>
+
+        <div class="col-md-10">
+            @Html.DropDownList("LivroId", ViewBag.Livros as SelectList, htmlAttributes: new { @class = "form-control" })
+
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" value="Adicionar" class="btn btn-default" id="btnAdicionar" />
+        </div>
+    </div>
+    <table class="table" id="tabelalivros">
+        <thead>
+            <tr>
+                <th>
+                    Livro
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+
+
+    <script>
+        let index = 0;
+        $(document).ready(function () {
+            $("#btnAdicionar").click(() => {
+
+                $("#tabelalivros tbody").append(
+                    $("<tr/>")
+                        //.append($("<td/>").append("Nome do Livro"))
+                        .append($("<td/>").append($("#LivroId option:selected").text()))
+                        .append($("<td/>")
+                            //.append("<input />")// botão remover
+                            .append($('<input type="button" value="Excluir" class="btn btn-danger" />').click(ExcluirLinha))   // botão remover
+                            .append("<input type='hidden' name='ReservaLivros[" + index++ + "].LivroId' value='" + $("#LivroId").val()+"' />")// input hidden com o livro id
+                        )
+                )
+            });
+        });
+
+        function ExcluirLinha() {
+            $(this).parent().parent().remove();
+        }
+
+    </script>
+
+}

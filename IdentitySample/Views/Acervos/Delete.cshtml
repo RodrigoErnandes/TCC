@@ -1,0 +1,63 @@
+﻿@model IdentitySample.Models.Acervo
+
+@{
+    ViewBag.Title = "Deletar";
+}
+
+<h2>Excluir</h2>
+
+<h3>Deseja Realmente Excluir o Acervo?</h3>
+<div>
+    <h4>Acervo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Livro.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Livro.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Corredor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Corredor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prateleira)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prateleira)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genero)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sim, Excluir" class="btn btn-danger" /> |
+            @Html.ActionLink("Não, Voltar", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<IdentitySample.Models.Livro>
+
+@{
+    ViewBag.Title = "Livros";
+}
+@Html.ActionLink("Exportar PDF", "Reports", new { ReportType = "PDF" }) |
+@Html.ActionLink("Exportar Excel", "Reports", new { ReportType = "Excel" })
+<h2>Livros</h2>
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("Admin"))
+    {
+        <p>
+            @Html.ActionLink("Novo Livro", "Create")
+        </p>
+    }
+    if (User.IsInRole("Atendente"))
+    {
+        <p>
+            @Html.ActionLink("Novo Livro", "Create")
+        </p>
+    }
+
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Autor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Editora)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Paginas)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Autor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Editora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paginas)
+            </td>
+
+            @if (Request.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                    </td>
+                }
+                if (User.IsInRole("Atendente"))
+                {
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |                |
+                        @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                    </td>
+                }
+            }
+        </tr>
+    }
+
+
+</table>
