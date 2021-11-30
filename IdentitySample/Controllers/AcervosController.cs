@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IdentitySample.Models;
+using IdentitySample.Models.Relatorio;
 using Microsoft.Reporting.WebForms;
 
 namespace IdentitySample.Controllers
@@ -23,8 +24,20 @@ namespace IdentitySample.Controllers
 
             ReportDataSource reportDataSource = new ReportDataSource();
             reportDataSource.Name = "DataSet1";
-            reportDataSource.Value = db.Database.SqlQuery<EmprestimosComLivro>("select E.*,L.Titulo from Emprestimos E join Livros L ON E.LivroId=L.Id").ToList();
+
+            var lista = db.Acervos.Include(c => c.Livro).Select(c => new AcervoComLivro
+            {
+                LivroId = c.LivroId,
+                Titulo = c.Livro.Titulo,
+                Estado = c.Estado,
+                Corredor = c.Corredor,
+                Prateleira = c.Prateleira,
+                Genero = c.Genero,
+            }).ToList();
+
+            reportDataSource.Value = lista;
             localreports.DataSources.Add(reportDataSource);
+
             string reportType = ReportType;
             string mimeType;
             string encoding;
@@ -140,12 +153,7 @@ namespace IdentitySample.Controllers
             }
 
             ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Acervos.Any()), "Id", "Titulo", acervo.LivroId);
-            ViewBag.Status = new SelectList(new List<string>()
-                {
-                    {"Emprestado"},
-                    {"Devolvido"},
-                    {"Reservado"}
-              });
+            ViewBag.Status = new SelectList(db.Situacoes, "NomeSituacao", "NomeSituacao");
 
             ViewBag.Genero = new SelectList(new List<string>()
                 {

@@ -33,16 +33,12 @@ namespace IdentitySample.Models
 
 
 
-        //[Display(Name = "Situacao")]
-        //[Required(ErrorMessage = "Campo Obrigatório | Favor selecionar a situação")]
-        //public int? SituacaoId { get; set; }
-        //[ForeignKey("SituacaoId")]
-        //public Situacao Situacao { get; set; }
-
-
         [Display(Name = "Situação do Empréstimo")]
-        [Required(ErrorMessage = "Campo Obrigatório | Favor selecionar o status atual")]
-        public string Status { get; set; }
+        [Required(ErrorMessage = "Campo Obrigatório | Favor selecionar a situação atual")]
+        public int SituacaoId { get; set; }
+        [ForeignKey("SituacaoId")]
+        public Situacao Situacao { get; set; }
+
 
 
 

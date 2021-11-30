@@ -24,7 +24,7 @@
             @Html.DisplayNameFor(model => model.DataPrevisaoDevolucao)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayNameFor(model => model.Situacao.NomeSituacao)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Leitor)
@@ -45,7 +45,7 @@
                 @Html.DisplayFor(modelItem => item.DataPrevisaoDevolucao)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                @Html.DisplayFor(modelItem => item.Situacao.NomeSituacao)
             </td>
             <th>
                 @Html.DisplayFor(modelItem => item.Leitor)

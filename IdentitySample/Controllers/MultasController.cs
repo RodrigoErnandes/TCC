@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using IdentitySample.Identity;
 using IdentitySample.Models;
+using IdentitySample.Models.Relatorio;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Reporting.WebForms;
@@ -39,7 +40,17 @@ namespace IdentitySample.Controllers
 
             ReportDataSource reportDataSource = new ReportDataSource();
             reportDataSource.Name = "DataSet1";
-            reportDataSource.Value = db.Database.SqlQuery<EmprestimosComLivro>("select E.*,L.Titulo from Emprestimos E join Livros L ON E.LivroId=L.Id").ToList();
+            var lista = db.Multas.Include(c => c.Livro).Select(c => new MultasComEmprestimo
+            {
+                LivroId = c.LivroId,
+                Titulo = c.Livro.Titulo,                
+                Valor = c.Valor,
+                MotivoMulta = c.MotivoMulta,
+                StatusPagamento= c.StatusPagamento,
+                Leitor = c.Leitor,
+            }).ToList();
+
+            reportDataSource.Value = lista;
             localreports.DataSources.Add(reportDataSource);
             string reportType = ReportType;
             string mimeType;
@@ -59,7 +70,7 @@ namespace IdentitySample.Controllers
             Warning[] warnings;
             byte[] renderedByte;
             renderedByte = localreports.Render(reportType, "", out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
-            Response.AddHeader("content-disposition", "attachment; filename = Acervos_Relatorio." + fileNameExtension);
+            Response.AddHeader("content-disposition", "attachment; filename = Multas_Relatorio." + fileNameExtension);
             return File(renderedByte, fileNameExtension);
 
         }
@@ -85,6 +96,18 @@ namespace IdentitySample.Controllers
                 return HttpNotFound();
             }
             return View(multa);
+        }
+
+        [HttpPost, ActionName("Pagar")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Pagar(int id)
+        {
+            Multa multa = db.Multas.Find(id);
+
+            multa.StatusPagamento = "Pago";
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // GET: Multas/Create

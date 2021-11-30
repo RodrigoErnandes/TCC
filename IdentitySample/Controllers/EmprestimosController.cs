@@ -34,7 +34,7 @@ namespace IdentitySample.Controllers
             }
         }
 
-
+        //Novo Exportar PDF
 
         public ActionResult Reports(string ReportType)
         {
@@ -43,7 +43,19 @@ namespace IdentitySample.Controllers
 
             ReportDataSource reportDataSource = new ReportDataSource();
             reportDataSource.Name = "DataSet1";
-            reportDataSource.Value = db.Database.SqlQuery<EmprestimosComLivro>("select E.*,L.Titulo from Emprestimos E join Livros L ON E.LivroId=L.Id").ToList();
+
+            var lista = db.Emprestimos.Include(c => c.Livro).Select(c => new EmprestimosComLivro
+            {
+                LivroId = c.LivroId,
+                Titulo = c.Livro.Titulo,
+                DataEmprestimo = c.DataEmprestimo,
+                DataPrevisaoDevolucao = c.DataPrevisaoDevolucao,
+                Situacao = c.Situacao,
+                Leitor = c.Leitor,
+            }).ToList();
+
+            reportDataSource.Value = lista;
+
             localreports.DataSources.Add(reportDataSource);
             string reportType = ReportType;
             string mimeType;
@@ -63,16 +75,17 @@ namespace IdentitySample.Controllers
             Warning[] warnings;
             byte[] renderedByte;
             renderedByte = localreports.Render(reportType, "", out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
-            Response.AddHeader("content-disposition", "attachment; filename = Emprestimos_Relatorio." + fileNameExtension);
+            Response.AddHeader("content-disposition", "attachment; filename = Equipamentos_Relatorio." + fileNameExtension);
             return File(renderedByte, fileNameExtension);
 
         }
+
 
         // GET: Emprestimos
         public ActionResult Index()
         {
 
-            var emprestimos = db.Emprestimos.Include(e => e.Livro);
+            var emprestimos = db.Emprestimos.Include(e => e.Livro).Include(c => c.Situacao);
             return View(emprestimos.ToList());
         }
 
@@ -98,7 +111,7 @@ namespace IdentitySample.Controllers
         public ActionResult Create()
         {
             ViewBag.Leitor = new SelectList(UserManager.Users, "UserName", "UserName");
-            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.Status == "Emprestado")).ToList(), "Id", "Titulo");
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.SituacaoId == 1)).ToList(), "Id", "Titulo");
 
             return View();
         }
@@ -108,18 +121,18 @@ namespace IdentitySample.Controllers
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,LivroId,DataEmprestimo,DataPrevisaoDevolucao,Status,Leitor")] Emprestimo emprestimo)
+        public ActionResult Create([Bind(Include = "Id,LivroId,DataEmprestimo,DataPrevisaoDevolucao,Leitor")] Emprestimo emprestimo)
         {
             if (ModelState.IsValid)
             {
-                emprestimo.Status = "Emprestado";
+                emprestimo.SituacaoId = 1; //"Emprestado"
 
                 db.Emprestimos.Add(emprestimo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.Leitor = new SelectList(UserManager.Users, "UserName", "UserName");
-            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.Status == "Emprestado")).ToList(), "Id", "Titulo");
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.SituacaoId == 1)).ToList(), "Id", "Titulo");
             return View(emprestimo);
         }
 
@@ -136,7 +149,7 @@ namespace IdentitySample.Controllers
                 return HttpNotFound();
             }
             ViewBag.Leitor = new SelectList(UserManager.Users, "UserName", "UserName");
-            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.Status == "Emprestado")).ToList(), "Id", "Titulo");
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.SituacaoId == 1)).ToList(), "Id", "Titulo");
 
             return View(emprestimo);
         }
@@ -155,7 +168,7 @@ namespace IdentitySample.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Leitor = new SelectList(UserManager.Users, "UserName", "UserName");
-            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.Status == "Emprestado")).ToList(), "Id", "Titulo");
+            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo && !c.Emprestimos.Any(d => d.SituacaoId == 1)).ToList(), "Id", "Titulo");
 
             return View(emprestimo);
         }
@@ -193,7 +206,7 @@ namespace IdentitySample.Controllers
         {
             Emprestimo emprestimo = db.Emprestimos.Find(id);
 
-            emprestimo.Status = "Devolvido";
+            emprestimo.SituacaoId = 2;//Devolvido
             db.SaveChanges();
 
 
@@ -214,7 +227,7 @@ Livro: " + livro.Livro.Titulo + @"
 ";
                 var email = new MailMessage
                 {
-                    From = new MailAddress("rodrigoernandesgdh@gmail.com"),
+                    From = new MailAddress("tcc.puc21@gmail.com"),
                     IsBodyHtml = true,
                     Body = enviaMensagem,
                     BodyEncoding = Encoding.GetEncoding("ISO-8859-1"),
@@ -225,7 +238,7 @@ Livro: " + livro.Livro.Titulo + @"
 
                 var sc = new SmtpClient("smtp.gmail.com", 587)
                 {
-                    Credentials = new NetworkCredential("rodrigoernandesgdh@gmail.com", "CavaloeCaneta"),
+                    Credentials = new NetworkCredential("tcc.puc21@gmail.com", "P@$$W0rd"),
                     EnableSsl = true
                 };
 

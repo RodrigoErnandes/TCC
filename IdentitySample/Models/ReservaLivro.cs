@@ -10,6 +10,8 @@ namespace IdentitySample.Models
     [Table("ReservaLivros")]
     public class ReservaLivro
     {
+        internal object Destino;
+
         public int Id { get; set; }
 
         [Display(Name = "Livro")]

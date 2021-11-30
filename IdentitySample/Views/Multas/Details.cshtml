@@ -5,62 +5,72 @@
 }
 
 <h2>Detalhes</h2>
+@using (Html.BeginForm("Pagar", null, new { id = Model.Id }, FormMethod.Post))
 
-<div>
-    <h4>Multa</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Leitor)
-        </dt>
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <h4>Multa</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Leitor)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Leitor)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Leitor)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Livro.Titulo)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Livro.Titulo)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Livro.Titulo)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Livro.Titulo)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MotivoMulta)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.MotivoMulta)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.MotivoMulta)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.MotivoMulta)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Valor)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Valor)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Valor)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Valor)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StatusPagamento)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.StatusPagamento)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.StatusPagamento)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.StatusPagamento)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Observacao)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Observacao)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Observacao)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Observacao)
+            </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Voltar", "Index")
-</p>
+        </dl>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Pagar" class="btn btn-success" />
+
+            </div>
+        </div>
+    </div>
+}
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Voltar", "Index")
+    </p>

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IdentitySample.Models;
+using IdentitySample.Models.Relatorio;
 using Microsoft.Reporting.WebForms;
 
 namespace IdentitySample.Controllers
@@ -23,7 +24,18 @@ namespace IdentitySample.Controllers
 
             ReportDataSource reportDataSource = new ReportDataSource();
             reportDataSource.Name = "DataSet1";
-            reportDataSource.Value = db.Database.SqlQuery<EmprestimosComLivro>("select E.*,L.Titulo from Emprestimos E join Livros L ON E.LivroId=L.Id").ToList();
+
+            var lista = db.Baixas.Include(c => c.Livro).Select(c => new BaixasComLivro
+            {
+                LivroId = c.LivroId,
+                Titulo = c.Livro.Titulo,
+                Motivo = c.MotivoBaixa,
+                Destino = c.Destino,
+                DataBaixa = c.Databaixa,                
+            }).ToList();
+
+            reportDataSource.Value = lista;
+
             localreports.DataSources.Add(reportDataSource);
             string reportType = ReportType;
             string mimeType;
@@ -83,17 +95,41 @@ namespace IdentitySample.Controllers
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,LivroId,MotivoBaixa,Destino,Databaixa")] Baixa baixa)
+        public JsonResult Create([Bind(Include = "Id,LivroId,MotivoBaixa,Destino,Databaixa")] Baixa baixa)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Baixas.Add(baixa);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
 
-            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo", baixa.LivroId);
-            return View(baixa);
+                    if (db.Emprestimos.Any(c => c.LivroId == baixa.LivroId && c.SituacaoId == 1)) //"Emprestado"
+                    {
+                        throw new Exception("Não foi possível baixar o livro selecionado. Livro emprestado");
+                    }
+
+                    db.Baixas.Add(baixa);
+
+                    foreach (var item in db.Livros.Where(c => c.Id == baixa.LivroId).ToList())
+                    {
+                        item.Ativo = false;
+                    }
+
+                    foreach (var item in db.Acervos.Where(c => c.LivroId == baixa.LivroId).ToList())
+                    {
+                        item.Ativo = false;
+                    }
+
+                    db.SaveChanges();
+
+
+                    return Json("OK");
+                }
+                return Json(baixa);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
 
         // GET: Baixas/Edit/5
@@ -103,12 +139,11 @@ namespace IdentitySample.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Baixa baixa = db.Baixas.Find(id);
+            Baixa baixa = db.Baixas.Include(c => c.Livro).SingleOrDefault(c => c.Id == id);
             if (baixa == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.LivroId = new SelectList(db.Livros.Where(c => c.Ativo).ToList(), "Id", "Titulo", baixa.LivroId);
             return View(baixa);
         }
 
@@ -123,7 +158,7 @@ namespace IdentitySample.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (db.Emprestimos.Any(c => c.LivroId == baixa.LivroId && c.Status == "Emprestado"))
+                    if (db.Emprestimos.Any(c => c.LivroId == baixa.LivroId && c.SituacaoId == 1)) //"Emprestado"
                     {
                         throw new Exception("Não foi possível baixar o livro selecionado. Livro emprestado");
                     }

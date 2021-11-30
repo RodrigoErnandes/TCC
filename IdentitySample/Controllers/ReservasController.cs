@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using IdentitySample.Models;
+using IdentitySample.Models.Relatorio;
 using Microsoft.Reporting.WebForms;
 
 namespace IdentitySample.Controllers
@@ -24,7 +25,16 @@ namespace IdentitySample.Controllers
 
             ReportDataSource reportDataSource = new ReportDataSource();
             reportDataSource.Name = "DataSet1";
-            reportDataSource.Value = db.Database.SqlQuery<EmprestimosComLivro>("select E.*,L.Titulo from Emprestimos E join Livros L ON E.LivroId=L.Id").ToList();
+            var lista = db.ReservaLivros.Include(c => c.Livro).Select(c => new ReservasComLivro
+            {
+                LivroId = c.LivroId,
+                Titulo = c.Livro.Titulo,
+                Leitor = c.Livro.Titulo,
+                DataReserva = c.Reserva.DataReserva,
+                               
+            }).ToList();
+
+            reportDataSource.Value = lista;
             localreports.DataSources.Add(reportDataSource);
             string reportType = ReportType;
             string mimeType;

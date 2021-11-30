@@ -305,20 +305,32 @@
     <Compile Include="Migrations\202111292024578_Situacao.Designer.cs">
       <DependentUpon>202111292024578_Situacao.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111301140471_Situacao2.cs" />
+    <Compile Include="Migrations\202111301140471_Situacao2.Designer.cs">
+      <DependentUpon>202111301140471_Situacao2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111301147499_Emprestimo_remocao_do_status.cs" />
+    <Compile Include="Migrations\202111301147499_Emprestimo_remocao_do_status.Designer.cs">
+      <DependentUpon>202111301147499_Emprestimo_remocao_do_status.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Acervo.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Baixa.cs" />
     <Compile Include="Models\Claims.cs" />
     <Compile Include="Models\Emprestimos.cs" />
-    <Compile Include="Models\EmprestimosComLivro.cs" />
-    <Compile Include="Models\GraficoViewModel.cs" />
+    <Compile Include="Models\Relatorio\AcervoComLivro.cs" />
+    <Compile Include="Models\Relatorio\BaixasComLivro.cs" />
+    <Compile Include="Models\Relatorio\EmprestimosComLivro.cs" />
+    <Compile Include="Models\Relatorio\MultasComEmprestimo.cs" />
+    <Compile Include="Models\Relatorio\ReservasComLivro.cs" />
+    <Compile Include="Models\ViewModel\GraficoViewModel.cs" />
     <Compile Include="Models\Livros.cs" />
     <Compile Include="Models\Multa.cs" />
     <Compile Include="Models\Reserva.cs" />
     <Compile Include="Models\ReservaLivro.cs" />
-    <Compile Include="Models\RoleViewModel.cs" />
-    <Compile Include="Models\ClaimViewModel.cs" />
+    <Compile Include="Models\ViewModel\RoleViewModel.cs" />
+    <Compile Include="Models\ViewModel\ClaimViewModel.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="App_Start\Identity\EmailService.cs" />
     <Compile Include="App_Start\Identity\IdentityConfig.cs" />
@@ -333,10 +345,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\ViewModel\AccountViewModels.cs" />
+    <Compile Include="Models\ViewModel\AdminViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModel\ManageViewModels.cs" />
     <Compile Include="Models\Situacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -357,6 +369,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Reports\Index.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Livros_aspnet_TCCPUCMINAS_20210323084824DataSet.xsc">
@@ -605,6 +618,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111292024578_Situacao.resx">
       <DependentUpon>202111292024578_Situacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111301140471_Situacao2.resx">
+      <DependentUpon>202111301140471_Situacao2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111301147499_Emprestimo_remocao_do_status.resx">
+      <DependentUpon>202111301147499_Emprestimo_remocao_do_status.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\AcervosRelatorio.rdlc" />
     <EmbeddedResource Include="Reports\BaixasRelatorio.rdlc" />
